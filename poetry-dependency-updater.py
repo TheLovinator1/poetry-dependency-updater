@@ -12,7 +12,6 @@ with open("pyproject.toml", encoding="utf-8") as f:
     # Get dependencies
     dependencies = pyproject["tool"]["poetry"]["dependencies"]
     for dep in dependencies:
-        extras = ""
         dep_version = dependencies[dep]
 
         # Don't try to update python
@@ -20,22 +19,24 @@ with open("pyproject.toml", encoding="utf-8") as f:
             continue
 
         # If the dependency is a git dependency, don't update it
-        # TODO: Add support for git dependencies
+        # TODO: #1 Add support for git dependencies
         if "git" in dep_version:
             print(f"{dep}: {dep_version} is a git dependency, skipping")
             continue
 
         # Check if dependency has extra dependencies
-        # Example: uvicorn = { extras = ["standard"], version = "^0.17.5" }
+        # Example: uvicorn = { extras = ["standard"], version =
+        # "^0.17.5" }
+        EXTRAS = ""
         if "extras" in dep_version:
-            extras = dep_version["extras"]
+            EXTRAS = dep_version["extras"]
 
         # Update the dependency
         try:
-            cmd = f"poetry add {dep}{extras}@latest"
-            print(f"Running: {cmd}")
+            CMD = f"poetry add {dep}{EXTRAS}@latest"
+            print(f"Running: {CMD}")
             subprocess.run(
-                cmd,
+                CMD,
                 check=True,
                 text=True,
                 shell=True,
@@ -45,10 +46,9 @@ with open("pyproject.toml", encoding="utf-8") as f:
 
 # Run a extra 'poetry update' for fun
 try:
-    cmd = "poetry update"
-    print(f"Running: {cmd}")
+    print("Running poetry update")
     subprocess.run(
-        cmd,
+        "poetry update",
         check=True,
         text=True,
         shell=True,
