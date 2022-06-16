@@ -3,7 +3,16 @@
 Parses pyproject.toml for packages and runs `poetry add package@latest`
 for each one.
 
-Needs [toml](https://pypi.org/project/toml/). Does not work with things outside PyPI. Feel free to send
+Only works with packages from PyPI. Feel free to send
 send pull requests to improve it.
 
-`sudo pacman -S python-toml` if you're using Arch Linux.
+## Usage
+
+Needs [toml](https://pypi.org/project/toml/).
+
+- Arch Linux:
+  - `sudo pacman -S python-toml`
+- Pip:
+  - `pip install toml`
+- Poetry:
+  - `poetry add toml`
